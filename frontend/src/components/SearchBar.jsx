@@ -1,0 +1,64 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function SearchBar() {
+  const [location, setLocation] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const trimmed = location.trim();
+    if (!trimmed) return;
+
+    navigate(`/tours?location=${encodeURIComponent(trimmed)}`);
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white shadow-lg rounded-2xl flex flex-wrap md:flex-nowrap items-center gap-4 px-6 py-4 w-full max-w-4xl mx-auto"
+    >
+      {/* Location Input */}
+      <div className="flex items-center gap-2 flex-1 min-w-[150px]">
+        <i className="fas fa-map-marker-alt text-green-600" />
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="outline-none w-full placeholder-gray-500 text-sm"
+        />
+      </div>
+
+      {/* Date Input (currently just UI) */}
+      <div className="flex items-center gap-2 flex-1 min-w-[150px]">
+        <i className="fas fa-calendar-alt text-green-600" />
+        <input
+          type="date"
+          className="outline-none w-full placeholder-gray-500 text-sm"
+        />
+      </div>
+
+      {/* Tour Type Select (currently just UI) */}
+      <div className="flex items-center gap-2 flex-1 min-w-[150px]">
+        <i className="fas fa-tags text-green-600" />
+        <select className="outline-none w-full text-sm text-gray-600">
+          <option value="">Select Type</option>
+          <option value="Family Tour">Family Tour</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Romantic">Romantic</option>
+          <option value="Cultural">Cultural</option>
+        </select>
+      </div>
+
+      {/* Search Button */}
+      <button
+        type="submit"
+        className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition text-sm"
+      >
+        Search
+      </button>
+    </form>
+  );
+}
