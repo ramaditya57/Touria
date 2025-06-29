@@ -74,7 +74,7 @@ export default function AdminBlogs() {
           <h1 className="text-2xl font-bold text-gray-700">Manage Blogs</h1>
           <button
             onClick={() => handleOpenModal()}
-            className="bg-green-600 text-white px-4 py-1 rounded"
+            className="bg-green-600 !text-white px-4 py-2 rounded"
           >
             + Add Blog
           </button>
@@ -94,16 +94,16 @@ export default function AdminBlogs() {
               {blogs.map((blog) => (
                 <tr key={blog._id} className="border-b">
                   <td className="p-2">{blog.title}</td>
-                  <td className="p-2 space-x-2">
+                  <td className="p-2 !space-x-2">
                     <button
                       onClick={() => handleOpenModal(blog)}
-                      className="bg-blue-600 text-white px-2 py-1 rounded text-sm"
+                      className="bg-blue-600 !text-white px-2 py-1 rounded text-sm"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(blog._id)}
-                      className="bg-red-600 text-white px-2 py-1 rounded text-sm"
+                      className="bg-red-600 !text-white px-2 py-1 rounded text-sm"
                     >
                       Delete
                     </button>

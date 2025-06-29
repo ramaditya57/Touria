@@ -100,7 +100,7 @@ export default function AdminBookings() {
                   <td className="p-2">
                     <button
                       onClick={() => handleCancel(b._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                      className="bg-red-600 !text-white px-3 py-1 rounded hover:bg-red-700"
                     >
                       Cancel
                     </button>
@@ -112,7 +112,7 @@ export default function AdminBookings() {
         </table>
 
         {bookings.length === 0 && (
-          <p className="text-center text-gray-500 mt-6">No bookings found.</p>
+          <p className="text-center text-gray-500 !mt-6">No bookings found.</p>
         )}
       </div>
     </div>

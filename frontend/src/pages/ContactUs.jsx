@@ -13,28 +13,28 @@ export default function ContactUs() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
+
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
     setForm({ name: "", email: "", message: "" });
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 py-12 flex justify-center items-center"
-    style={{
+    <div
+      className="min-h-screen bg-gray-100 px-4 py-12 flex justify-center items-center"
+      style={{
         backgroundImage: "url('/contactUs.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-      }}>
+      }}
+    >
       <motion.div
-        className="bg-white shadow-xl rounded-2xl p-8 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-10"
+        className="bg-white shadow-2xl rounded-2xl p-8 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-10"
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        style={{
-          display: "",
-          backgroundColor: "rgba(255, 255, 255, 0.85)"
-        }}
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.85)" }}
       >
         {/* Contact Info Section */}
         <motion.div
@@ -50,15 +50,15 @@ export default function ContactUs() {
 
           <div className="space-y-4 text-gray-700">
             <div className="flex items-center gap-3">
-              <Mail className="text-green-600" />
+              <Mail className="text-green-600" aria-hidden />
               <span>contact@touria.com</span>
             </div>
             <div className="flex items-center gap-3">
-              <Phone className="text-green-600" />
+              <Phone className="text-green-600" aria-hidden />
               <span>+91 98765 43210</span>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin className="text-green-600" />
+              <MapPin className="text-green-600" aria-hidden />
               <span>New Delhi, India</span>
             </div>
           </div>
@@ -73,8 +73,11 @@ export default function ContactUs() {
           transition={{ delay: 0.3, duration: 0.6 }}
         >
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Name</label>
+            <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700">
+              Name
+            </label>
             <input
+              id="name"
               name="name"
               value={form.name}
               onChange={handleChange}
@@ -85,8 +88,11 @@ export default function ContactUs() {
           </div>
 
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
+            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               name="email"
               value={form.email}
@@ -98,8 +104,11 @@ export default function ContactUs() {
           </div>
 
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Message</label>
+            <label htmlFor="message" className="block mb-1 text-sm font-medium text-gray-700">
+              Message
+            </label>
             <textarea
+              id="message"
               name="message"
               value={form.message}
               onChange={handleChange}
@@ -113,13 +122,15 @@ export default function ContactUs() {
             type="submit"
             whileTap={{ scale: 0.95 }}
             whileHover={{ scale: 1.02 }}
-            className="bg-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+            className="bg-green-600 !text-white px-6 py-2 rounded-lg shadow hover:shadow-lg hover:bg-green-700 transition duration-300"
           >
             Send Message
           </motion.button>
 
           {submitted && (
-            <p className="text-green-600 mt-2 transition duration-300">Thank you! Your message has been sent.</p>
+            <p className="text-green-600 mt-2 transition duration-300">
+              Thank you! Your message has been sent.
+            </p>
           )}
         </motion.form>
       </motion.div>

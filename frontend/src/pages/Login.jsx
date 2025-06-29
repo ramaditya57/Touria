@@ -146,7 +146,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className={`bg-green-600 text-white w-full py-2 rounded hover:bg-green-700 transition
+            className={`bg-green-600 !text-white w-full py-2 rounded hover:bg-green-700 transition
                         flex justify-center items-center gap-2
                         ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             disabled={loading}

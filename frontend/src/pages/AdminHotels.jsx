@@ -74,7 +74,7 @@ export default function AdminHotels() {
           <h1 className="text-2xl font-bold text-gray-700">Manage Hotels</h1>
           <button
             onClick={handleAdd}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 !text-white px-4 py-2 rounded hover:bg-blue-700"
           >
             + Add Hotel
           </button>
@@ -103,16 +103,16 @@ export default function AdminHotels() {
                 <td className="p-2 font-semibold">{hotel.name}</td>
                 <td className="p-2">{hotel.location}</td>
                 <td className="p-2">₹{hotel.price}</td>
-                <td className="p-2 space-x-2">
+                <td className="p-2 !space-x-2">
                   <button
                     onClick={() => handleEdit(hotel)}
-                    className="bg-yellow-500 text-white px-2 py-1 rounded text-sm"
+                    className="bg-yellow-500 !text-white px-2 py-1 rounded text-sm"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(hotel._id)}
-                    className="bg-red-600 text-white px-2 py-1 rounded text-sm"
+                    className="bg-red-600 !text-white px-2 py-1 rounded text-sm"
                   >
                     Delete
                   </button>

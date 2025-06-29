@@ -67,7 +67,7 @@ export default function AdminTours() {
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-700">Manage Tours</h1>
-          <button onClick={handleAdd} className="bg-green-600 text-white px-4 py-2 rounded">
+          <button onClick={handleAdd} className="bg-green-600 !text-white px-4 py-2 rounded">
             + Add Tour
           </button>
         </div>
@@ -90,11 +90,11 @@ export default function AdminTours() {
                 <td className="p-2">{tour.title}</td>
                 <td className="p-2">{tour.location}</td>
                 <td className="p-2">₹{tour.price}</td>
-                <td className="p-2 space-x-2">
-                  <button onClick={() => handleEdit(tour)} className="bg-yellow-500 text-white px-2 py-1 rounded text-sm">
+                <td className="p-2 !space-x-2">
+                  <button onClick={() => handleEdit(tour)} className="bg-yellow-500 !text-white px-2 py-1 rounded text-sm">
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(tour._id)} className="bg-red-600 text-white px-2 py-1 rounded text-sm">
+                  <button onClick={() => handleDelete(tour._id)} className="bg-red-600 !text-white px-2 py-1 rounded text-sm">
                     Delete
                   </button>
                 </td>

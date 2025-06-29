@@ -39,18 +39,18 @@ export default function Navbar() {
     { path: "/contact", label: "Contact" },
   ];
 
-  const activeClass = "bg-green-800 text-white px-4 py-2 rounded-full";
+  const activeClass = "bg-green-800 !text-white px-4 py-2 rounded-full";
 
   return (
     <nav
       className={`sticky top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? "shadow-md bg-white text-gray-800"
-          : "bg-gradient-to-r from-emerald-500 via-green-500 to-green-600 text-white"
+          : "bg-gradient-to-r from-emerald-500 via-green-500 to-green-600 !text-white"
       }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
-        <Link to="/" className="text-green-900 font-bold text-xl">
+        <Link to="/" className="text-green-900 font-bold text-3xl">
           Touria
         </Link>
 
@@ -65,7 +65,7 @@ export default function Navbar() {
                 className={`${
                   isActive
                     ? activeClass
-                    : "hover:bg-green-600 hover:text-white px-4 py-2 rounded-full"
+                    : "hover:bg-green-600 hover:!text-white px-4 py-2 rounded-full"
                 } transition-colors duration-200`}
               >
                 {link.label}
@@ -79,11 +79,11 @@ export default function Navbar() {
           {role === "user" && (
             <Link
               to="/cart"
-              className="relative text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+              className="relative text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
             >
               Cart
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                <span className="absolute -top-2 -right-2 bg-red-500 !text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {cartCount}
                 </span>
               )}
@@ -93,7 +93,7 @@ export default function Navbar() {
           {role === "admin" ? (
             <Link
               to="/admin"
-              className="text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+              className="text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
             >
               Dashboard
             </Link>
@@ -102,14 +102,14 @@ export default function Navbar() {
           {role ? (
             <button
               onClick={handleSignOut}
-              className="text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+              className="text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
             >
               Sign Out
             </button>
           ) : (
             <Link
               to="/login"
-              className="text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+              className="text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
             >
               Login
             </Link>
@@ -159,7 +159,7 @@ export default function Navbar() {
                   className={`block ${
                     isActive
                       ? activeClass
-                      : "text-black hover:bg-green-600 hover:text-white px-4 py-2 rounded-full"
+                      : "text-black hover:bg-green-600 hover:!text-white px-4 py-2 rounded-full"
                   } transition-colors duration-200`}
                 >
                   {link.label}
@@ -171,11 +171,11 @@ export default function Navbar() {
               <Link
                 to="/cart"
                 onClick={() => setOpen(false)}
-                className="relative block text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-105 transition"
+                className="relative block text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-105 transition"
               >
                 Cart
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-red-500 !text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                     {cartCount}
                   </span>
                 )}
@@ -186,7 +186,7 @@ export default function Navbar() {
               <Link
                 to="/admin"
                 onClick={() => setOpen(false)}
-                className="block text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+                className="block text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
               >
                 Dashboard
               </Link>
@@ -198,7 +198,7 @@ export default function Navbar() {
                   handleSignOut();
                   setOpen(false);
                 }}
-                className="block w-full text-left text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+                className="block w-full text-left text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
               >
                 Sign Out
               </button>
@@ -206,7 +206,7 @@ export default function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setOpen(false)}
-                className="block text-sm bg-green-800 text-white px-4 py-2 rounded-full hover:scale-110 transition"
+                className="block text-sm bg-green-800 !text-white px-4 py-2 rounded-full hover:scale-110 transition"
               >
                 Login
               </Link>

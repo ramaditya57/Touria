@@ -15,27 +15,25 @@ export default function AboutUs() {
           About <span className="text-green-600">Touria</span>
         </h1>
 
-        {/* Who we are */}
-        <p className="text-gray-700 text-center max-w-3xl mx-auto text-lg mb-10">
-          At <span className="font-semibold text-green-700">Touria</span>, we're more than a travel company —
-          we're a team of explorers, creators, and planners dedicated to crafting seamless and memorable travel experiences.
-          Whether you're looking for adventure, relaxation, or a cultural escape, we've got you covered.
+        {/* Intro */}
+        <p className="text-gray-700 text-center max-w-3xl mx-auto text-lg mb-10 leading-relaxed">
+          At <span className="font-semibold text-green-700">Touria</span>, we’re more than just a travel company — we’re a passionate team of explorers and planners, committed to crafting effortless and unforgettable journeys. Whether you crave adventure, relaxation, or cultural immersion, we make it happen.
         </p>
 
-        {/* What we offer */}
+        {/* What We Offer */}
         <div className="grid md:grid-cols-3 gap-6 mb-14">
           {[
             {
               title: "Custom Tour Packages",
-              desc: "Tailored itineraries to fit your style, budget, and bucket list.",
+              desc: "Tailored itineraries to match your travel dreams, budget, and timeline.",
             },
             {
               title: "Flight & Hotel Booking",
-              desc: "Competitive pricing, flexible dates, and trusted partners worldwide.",
+              desc: "Secure deals with reliable global partners and flexible options.",
             },
             {
               title: "24/7 Travel Support",
-              desc: "Our travel experts are with you before, during, and after your trip.",
+              desc: "Our travel team is available anytime – before, during, or after your trip.",
             },
           ].map((item, idx) => (
             <motion.div
@@ -53,28 +51,28 @@ export default function AboutUs() {
         </div>
 
         {/* Our Journey Timeline */}
-        <h2 className="text-2xl font-bold text-green-800 mb-4 text-center">Our Journey</h2>
+        <h2 className="text-2xl font-bold text-green-800 mb-6 text-center">Our Journey</h2>
         <div className="relative border-l-4 border-green-300 pl-6 space-y-8">
           {[
             {
               year: "2020",
               title: "Founded",
-              desc: "Touria was born with a simple vision: to make travel easy, exciting, and accessible for everyone.",
+              desc: "Touria was created with a mission to simplify and enhance travel for everyone.",
             },
             {
               year: "2021",
-              title: "Reached 10K+ Users",
-              desc: "Within a year, thousands of travelers joined our platform and started exploring the world with us.",
+              title: "10K+ Happy Travelers",
+              desc: "Thousands of users began exploring the world with our trusted platform.",
             },
             {
               year: "2023",
-              title: "Launched Mobile App",
-              desc: "Our mobile app brought all travel services to users’ fingertips with real-time updates and booking.",
+              title: "Mobile App Launched",
+              desc: "Our app made it easy to book and manage trips with real-time support.",
             },
             {
               year: "2024",
-              title: "Expanded Globally",
-              desc: "We started offering international packages, partnerships with global travel providers, and expanded our customer base.",
+              title: "Global Expansion",
+              desc: "We introduced international tours and forged partnerships across continents.",
             },
           ].map((step, index) => (
             <motion.div

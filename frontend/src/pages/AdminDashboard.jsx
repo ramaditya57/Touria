@@ -54,39 +54,39 @@ export default function AdminDashboard() {
           <>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <StatCard
-                icon={<UserCircle className="text-blue-600" />}
+                icon={<UserCircle className="w-6 h-6" />}
                 label="Users"
                 value={stats.users}
                 color="blue"
               />
               <StatCard
-                icon={<MapPin className="text-emerald-600" />}
+                icon={<MapPin className="w-6 h-6" />}
                 label="Tours"
                 value={stats.tours}
                 color="emerald"
               />
               <StatCard
-                icon={<Hotel className="text-indigo-600" />}
+                icon={<Hotel className="w-6 h-6" />}
                 label="Hotels"
                 value={stats.hotels}
                 color="indigo"
               />
               <StatCard
-                icon={<BookOpenCheck className="text-pink-600" />}
+                icon={<BookOpenCheck className="w-6 h-6" />}
                 label="Bookings"
                 value={stats.bookings}
                 color="pink"
               />
             </div>
 
-            {/* Optional: Future Stat Cards */}
+            {/* Extra Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
               <div className="bg-white p-6 rounded-xl shadow border">
                 <div className="flex items-center justify-between mb-2">
                   <h2 className="text-lg font-semibold text-gray-700">
                     Today's Bookings
                   </h2>
-                  <CalendarDays className="text-gray-400" />
+                  <CalendarDays className="text-gray-400 w-5 h-5" />
                 </div>
                 <p className="text-3xl font-bold text-green-600">
                   {Math.floor(stats.bookings * 0.1) + 1}
@@ -115,13 +115,18 @@ export default function AdminDashboard() {
 }
 
 function StatCard({ icon, label, value, color }) {
+  const colorClassMap = {
+    blue: "bg-blue-100 text-blue-600",
+    emerald: "bg-emerald-100 text-emerald-600",
+    indigo: "bg-indigo-100 text-indigo-600",
+    pink: "bg-pink-100 text-pink-600",
+  };
+
+  const iconWrapperClasses = `p-3 rounded-full ${colorClassMap[color] || "bg-gray-100 text-gray-600"}`;
+
   return (
     <div className="bg-white border rounded-xl shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition">
-      <div
-        className={`p-3 rounded-full bg-${color}-100 text-${color}-600`}
-      >
-        {icon}
-      </div>
+      <div className={iconWrapperClasses}>{icon}</div>
       <div>
         <p className="text-xl font-bold text-gray-800">{value}</p>
         <p className="text-sm text-gray-500">{label}</p>

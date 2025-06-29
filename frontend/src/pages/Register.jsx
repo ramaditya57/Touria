@@ -33,7 +33,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-end px-4"
+    <div className="min-h-screen flex items-center justify-center px-4"
     style={{
         backgroundImage: "url('/signup.jpg')",
         backgroundSize: "cover",
@@ -154,7 +154,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className={`bg-green-600 text-white w-full py-2 rounded hover:bg-green-700 transition flex justify-center items-center gap-2 ${
+            className={`bg-green-600 !text-white w-full py-2 rounded hover:bg-green-700 transition flex justify-center items-center gap-2 ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}

@@ -29,35 +29,40 @@ export default function TourDetails() {
       .catch((err) => console.error(err));
   }, [id]);
 
-  if (!tour) return <p className="text-center mt-10">Loading...</p>;
+  if (!tour) {
+    return <p className="text-center text-lg text-gray-600 mt-12">Loading tour details...</p>;
+  }
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
+    <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Main Image */}
-      <img
-        src={tour.image}
-        alt={tour.title}
-        className="w-full h-64 object-cover rounded mb-4"
-      />
+      <div className="w-full h-[300px] md:h-[400px] overflow-hidden rounded-lg shadow">
+        <img
+          src={tour.image}
+          alt={tour.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      {/* Title & Info */}
-      <h1 className="text-3xl font-bold mb-2">{tour.title}</h1>
-      <p className="text-gray-600 mb-2">{tour.location}</p>
-      <p className="text-gray-700 mb-4">₹{tour.price}</p>
-      <p className="text-gray-600 mb-6">{tour.description}</p>
+      {/* Tour Details */}
+      <div className="mt-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{tour.title}</h1>
+        <p className="text-green-600 text-lg mb-1">{tour.location}</p>
+        <p className="text-xl font-semibold text-gray-900 mb-4">₹{tour.price}</p>
+        <p className="text-gray-700 leading-relaxed mb-6">{tour.description}</p>
 
-      {/* Book Button */}
-      <button
-        className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700"
-        onClick={handleAddToCart}
-      >
-        Book Now
-      </button>
+        <button
+          className="bg-green-600 hover:bg-green-700 !text-white font-semibold px-6 py-2 rounded-full shadow transition"
+          onClick={handleAddToCart}
+        >
+          Book Now
+        </button>
+      </div>
 
-      {/* Gallery Images */}
+      {/* Gallery */}
       {tour.gallery && tour.gallery.length > 0 && (
-        <>
-          <h2 className="text-xl font-semibold mt-10 mb-3">Gallery</h2>
+        <div className="mt-10">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Gallery</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {tour.gallery.map((imgUrl, idx) => {
               const cleanedPath = imgUrl.replace(/\\/g, "/");
@@ -68,7 +73,7 @@ export default function TourDetails() {
               return (
                 <div
                   key={idx}
-                  className="w-full relative overflow-hidden rounded shadow-sm bg-gray-200"
+                  className="relative overflow-hidden rounded-lg bg-gray-100 shadow"
                   style={{ paddingTop: "66.66%" }}
                 >
                   <img
@@ -77,13 +82,13 @@ export default function TourDetails() {
                     className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 opacity-0"
                     loading="lazy"
                     onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
-                    onError={(e) => (e.target.src = "/placeholder-hotel.jpg")}
+                    onError={(e) => (e.currentTarget.src = "/placeholder-hotel.jpg")}
                   />
                 </div>
               );
             })}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

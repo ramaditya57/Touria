@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import { motion } from "framer-motion";
-import HotelCard from "../components/HotelCard"; // adjust path as needed
+import HotelCard from "../components/HotelCard"; // Adjust if needed
 
 export default function HotelList() {
   const [hotels, setHotels] = useState([]);
@@ -11,7 +11,7 @@ export default function HotelList() {
   useEffect(() => {
     API.get("/hotels")
       .then((res) => {
-        setHotels(res.data);
+        setHotels(res.data || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -22,22 +22,34 @@ export default function HotelList() {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-green-600 mt-10">Loading hotels...</p>;
+    return (
+      <p className="text-center text-green-600 mt-16 text-lg">Loading hotels...</p>
+    );
   }
 
   if (error) {
-    return <p className="text-center text-red-500 mt-10">{error}</p>;
+    return (
+      <p className="text-center text-red-500 mt-16 text-lg">{error}</p>
+    );
+  }
+
+  if (hotels.length === 0) {
+    return (
+      <div className="text-center mt-16 text-gray-600 text-lg">
+        No hotels available at the moment.
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <motion.h1
-        className="text-4xl font-bold text-green-800 mb-8 text-center"
+        className="text-4xl font-bold text-green-800 text-center mb-10"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
       >
-        Our Hotels
+        Explore Our Hotels
       </motion.h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">

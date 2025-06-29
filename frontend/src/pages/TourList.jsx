@@ -10,7 +10,7 @@ export default function TourList() {
   useEffect(() => {
     API.get("/tours")
       .then((res) => {
-        setTours(res.data);
+        setTours(res.data || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -21,17 +21,34 @@ export default function TourList() {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-green-600 text-lg py-10">Loading tours...</p>;
+    return (
+      <p className="text-center text-green-600 text-lg mt-16">
+        Loading tours...
+      </p>
+    );
   }
 
   if (error) {
-    return <p className="text-center text-red-500 text-lg py-10">{error}</p>;
+    return (
+      <p className="text-center text-red-500 text-lg mt-16">{error}</p>
+    );
+  }
+
+  if (tours.length === 0) {
+    return (
+      <p className="text-center text-gray-600 text-lg mt-16">
+        No tours available at the moment.
+      </p>
+    );
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
-      <h1 className="text-3xl font-bold text-gray-700 mb-4">Our Tours</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold text-green-800 mb-8 text-center">
+        Explore Our Tours
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {tours.map((tour) => (
           <TourCard key={tour._id} tour={tour} />
         ))}

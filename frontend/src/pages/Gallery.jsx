@@ -8,7 +8,7 @@ export default function Gallery() {
       <h1 className="text-3xl font-bold text-gray-700 mb-4">Gallery</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((src, idx) => (
-          <img key={idx} src={src} alt={`Gallery ${idx}`} className="w-full h-48 object-cover rounded" />
+          <img key={idx} src={src} alt={`Gallery ${idx}`} className="w-full h-48 object-contain rounded" />
         ))}
       </div>
     </div>
