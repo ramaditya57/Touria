@@ -8,12 +8,10 @@ import Blog from "./models/Blog.js";
 
 dotenv.config();
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected for seeding"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+await mongoose.connect(process.env.MONGO_URI);
+console.log("✅ MongoDB connected for seeding");
 
-// 🌍 Sample image URLs (publicly hosted)
+// 🌍 Sample image URLs
 const googleImageURLs = {
   avatar: [
     "https://i.pravatar.cc/150?img=1",
@@ -29,11 +27,11 @@ const googleImageURLs = {
     "https://www.planetware.com/wpimages/2024/06/switzerland-zermatt-attractions-town-center.jpg",
   ],
   hotel: [
-    "https://images.unsplash.com/photo-1718506748678-8531c0b0357e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90ZWwlMjBidWlsZGluZ3xlbnwwfHwwfHx8MA%3D%3D",
-    "https://images.unsplash.com/photo-1545175707-9eec1209f720?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWwlMjBidWlsZGluZ3xlbnwwfHwwfHx8MA%3D%3D",
-    "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGhvdGVsJTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1652348716053-3447e551dd1f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdGVsJTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1599722585837-c1cb8eea32ff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGhvdGVsJTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1718506748678-8531c0b0357e?w=600&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1545175707-9eec1209f720?w=600&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=600&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1652348716053-3447e551dd1f?w=600&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1599722585837-c1cb8eea32ff?w=600&auto=format&fit=crop&q=60",
   ],
   blog: [
     "https://img.freepik.com/free-photo/flat-lay-travel-concept_23-2149070635.jpg",
@@ -42,14 +40,30 @@ const googleImageURLs = {
   ],
 };
 
-// 👤 20 users
-const seedUsers = Array.from({ length: 20 }, (_, i) => ({
-  name: i < 5 ? `Admin User ${i + 1}` : `User ${i - 4}`,
-  email: i < 5 ? `admin${i + 1}@touria.com` : `user${i - 4}@touria.com`,
-  password: bcrypt.hashSync(i < 5 ? `admin${i + 1}` : `user${i - 4}`, 10),
-  role: i < 5 ? "admin" : "user",
-  avatar: googleImageURLs.avatar[i % googleImageURLs.avatar.length],
-}));
+// 👤 Users (admin, user, hotelOrg)
+const seedUsers = [
+  ...Array.from({ length: 5 }, (_, i) => ({
+    name: `Admin User ${i + 1}`,
+    email: `admin${i + 1}@touria.com`,
+    password: bcrypt.hashSync(`admin${i + 1}`, 10),
+    role: "admin",
+    avatar: googleImageURLs.avatar[i % 4],
+  })),
+  ...Array.from({ length: 10 }, (_, i) => ({
+    name: `User ${i + 1}`,
+    email: `user${i + 1}@touria.com`,
+    password: bcrypt.hashSync(`user${i + 1}`, 10),
+    role: "user",
+    avatar: googleImageURLs.avatar[i % 4],
+  })),
+  ...Array.from({ length: 5 }, (_, i) => ({
+    name: `Hotel Org ${i + 1}`,
+    email: `hotelorg${i + 1}@touria.com`,
+    password: bcrypt.hashSync(`hotelorg${i + 1}`, 10),
+    role: "hotelOrganization",
+    avatar: googleImageURLs.avatar[i % 4],
+  })),
+];
 
 // 🏝️ 20 tours
 const tourData = [
@@ -67,15 +81,12 @@ const seedTours = Array.from({ length: 20 }, (_, i) => {
     description: `Join our unforgettable guided tour of ${t.title.toLowerCase()} in ${t.location}. All-inclusive and expertly planned.`,
     price: 1000 + (i % 5) * 250,
     location: t.location,
-    image: googleImageURLs.tour[i % googleImageURLs.tour.length],
-    gallery: [
-      googleImageURLs.tour[i % googleImageURLs.tour.length],
-      googleImageURLs.tour[(i + 1) % googleImageURLs.tour.length],
-    ],
+    image: googleImageURLs.tour[i % 5],
+    gallery: [googleImageURLs.tour[i % 5], googleImageURLs.tour[(i + 1) % 5]],
   };
 });
 
-// 🏨 20 hotels
+// 🏨 20 hotels (link to hotelOrganization)
 const hotelData = [
   { name: "The Ritz Paris", location: "Paris, France" },
   { name: "Hotel Hassler Roma", location: "Rome, Italy" },
@@ -84,43 +95,8 @@ const hotelData = [
   { name: "Grand Hotel Zermatterhof", location: "Zermatt, Switzerland" },
 ];
 
-const seedHotels = Array.from({ length: 20 }, (_, i) => {
-  const h = hotelData[i % hotelData.length];
-  return {
-    name: h.name,
-    location: h.location,
-    description: `Stay at ${h.name}, a luxury hotel in ${h.location}. World-class service and breathtaking views.`,
-    price: 200 + (i % 5) * 50,
-    profileImage: googleImageURLs.hotel[i % googleImageURLs.hotel.length], // 👈 FIXED HERE
-    gallery: [
-      googleImageURLs.hotel[i % googleImageURLs.hotel.length],
-      googleImageURLs.hotel[(i + 1) % googleImageURLs.hotel.length],
-    ],
-  };
-});
+let hotelOrgUsers = [];
 
-
-// ✍️ 20 blogs
-const blogTopics = [
-  "How to Pack Smart",
-  "Top 10 Budget Destinations",
-  "Safety Tips Abroad",
-  "Creating the Perfect Itinerary",
-  "Must-Have Travel Apps",
-];
-
-const seedBlogs = Array.from({ length: 20 }, (_, i) => {
-  const topic = blogTopics[i % blogTopics.length];
-  return {
-    title: topic,
-    content: `Explore our expert tips on ${topic.toLowerCase()}. Make your next trip easier, safer, and more fun.`,
-    excerpt: `Here's everything you need to know about ${topic.toLowerCase()}.`,
-    author: `Admin User ${(i % 5) + 1}`,
-    image: googleImageURLs.blog[i % googleImageURLs.blog.length],
-  };
-});
-
-// 🌱 Seeder function
 async function seedDB() {
   try {
     await User.deleteMany();
@@ -128,9 +104,45 @@ async function seedDB() {
     await Hotel.deleteMany();
     await Blog.deleteMany();
 
-    await User.insertMany(seedUsers);
+    const users = await User.insertMany(seedUsers);
+    const hotelOrgs = users.filter(u => u.role === "hotelOrganization");
+    hotelOrgUsers = hotelOrgs;
+
+    const seedHotels = Array.from({ length: 20 }, (_, i) => {
+      const h = hotelData[i % 5];
+      return {
+        name: h.name,
+        location: h.location,
+        description: `Stay at ${h.name}, a luxury hotel in ${h.location}. World-class service and breathtaking views.`,
+        price: 200 + (i % 5) * 50,
+        profileImage: googleImageURLs.hotel[i % 5],
+        gallery: [googleImageURLs.hotel[i % 5], googleImageURLs.hotel[(i + 1) % 5]],
+        hotelOrganization: hotelOrgUsers[i % hotelOrgUsers.length]._id,
+      };
+    });
+
     await Tour.insertMany(seedTours);
     await Hotel.insertMany(seedHotels);
+
+    const blogTopics = [
+      "How to Pack Smart",
+      "Top 10 Budget Destinations",
+      "Safety Tips Abroad",
+      "Creating the Perfect Itinerary",
+      "Must-Have Travel Apps",
+    ];
+
+    const seedBlogs = Array.from({ length: 20 }, (_, i) => {
+      const topic = blogTopics[i % 5];
+      return {
+        title: topic,
+        content: `Explore our expert tips on ${topic.toLowerCase()}. Make your next trip easier, safer, and more fun.`,
+        excerpt: `Here's everything you need to know about ${topic.toLowerCase()}.`,
+        author: `Admin User ${(i % 5) + 1}`,
+        image: googleImageURLs.blog[i % 3],
+      };
+    });
+
     await Blog.insertMany(seedBlogs);
 
     console.log("✅ Seeding successful: Users, Tours, Hotels, Blogs added.");
